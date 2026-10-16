@@ -1,5 +1,6 @@
 	object_const_def
 	const HALLOFFAME_LANCE
+        const HALLOFFAME_RED
 
 HallOfFame_MapScripts:
 	def_scene_scripts
@@ -7,13 +8,69 @@ HallOfFame_MapScripts:
 	scene_script HallOfFameNoopScene,  SCENE_HALLOFFAME_NOOP
 
 	def_callbacks
+        callback MAPCALLBACK_OBJECTS, HOFShowLanceCallback
+;        callback MAPCALLBACK_OBJECTS, HOFShowRedCallback
+
+HOFShowLanceCallback:
+        checkcode VAR_REMATCHTOPFOUR
+        ifequal 5, .ShowRed
+        appear HALLOFFAME_LANCE
+        disappear HALLOFFAME_RED
+        endcallback
+.ShowRed:
+        appear HALLOFFAME_RED
+        disappear HALLOFFAME_LANCE
+        endcallback
+HOFShowRedCallback:
+        checkcode VAR_REMATCHTOPFOUR
+        ifequal 5, .ShowRed
+        disappear HALLOFFAME_RED
+        endcallback
+.ShowRed:
+        appear HALLOFFAME_RED
+        endcallback
 
 HallOfFameEnterScene:
+        checkcode VAR_REMATCHTOPFOUR
+        ifequal 5, .ShowRed
 	sdefer HallOfFameEnterScript
 	end
+.ShowRed:
+        sdefer HallOfFameEnterRedScript
+        end
 
 HallOfFameNoopScene:
 	end
+
+HallOfFameEnterRedScript:
+        follow HALLOFFAME_RED, PLAYER
+        applymovement HALLOFFAME_RED, HallOfFame_WalkUpWithLance
+        stopfollow
+        turnobject PLAYER, RIGHT
+        opentext
+        writetext HallOfFame_RedText
+        waitbutton
+        closetext
+        turnobject HALLOFFAME_RED, UP
+        applymovement PLAYER, HallOfFame_SlowlyApproachMachine
+        setscene SCENE_HALLOFFAME_NOOP
+        pause 15
+        setval HEALMACHINE_HALL_OF_FAME
+        special HealMachineAnim
+        setevent EVENT_BEAT_ELITE_FOUR
+        setevent EVENT_TELEPORT_GUY
+        setevent EVENT_RIVAL_SPROUT_TOWER
+        clearevent EVENT_RED_IN_MT_SILVER
+        setevent EVENT_OLIVINE_PORT_SPRITES_BEFORE_HALL_OF_FAME
+        clearevent EVENT_OLIVINE_PORT_SPRITES_AFTER_HALL_OF_FAME
+        setmapscene SPROUT_TOWER_3F, SCENE_SPROUTTOWER3F_NOOP
+        special HealParty
+        checkevent EVENT_GOT_SS_TICKET_FROM_ELM
+        iftrue .SkipPhoneCall
+        specialphonecall SPECIALCALL_SSTICKET
+.SkipPhoneCall:
+        halloffame
+        end
 
 HallOfFameEnterScript:
 	follow HALLOFFAME_LANCE, PLAYER
@@ -61,6 +118,11 @@ HallOfFame_WalkUpWithLance:
 HallOfFame_SlowlyApproachMachine:
 	slow_step UP
 	step_end
+
+HallOfFame_RedText:
+        text "..."
+        line "..."
+	done
 
 HallOfFame_LanceText:
 	text "SIEGFRIED: Ich war"
@@ -123,4 +185,5 @@ HallOfFame_MapEvents:
 	def_bg_events
 
 	def_object_events
-	object_event  4, 12, SPRITE_LANCE, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, -1
+	object_event  4, 12, SPRITE_LANCE, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_HOF_SHOW_LANCE
+        object_event  4, 12, SPRITE_RED, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_HOF_SHOW_RED

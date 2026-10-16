@@ -65,6 +65,12 @@ _GetVarAction::
 	dwb wBlueCardBalance,               RETVAR_ADDR_DE
 	dwb wBuenasPassword,                RETVAR_ADDR_DE
 	dwb wKenjiBreakTimer,               RETVAR_STRBUF2
+        dwb wRematchJohto,                  RETVAR_ADDR_DE
+        dwb wRematchJohtoMax,               RETVAR_ADDR_DE
+        dwb wRematchKanto,                  RETVAR_ADDR_DE
+        dwb wRematchKantoMax,               RETVAR_ADDR_DE
+        dwb wRematchTopFour,                RETVAR_ADDR_DE
+        dwb wRematchTopFourMax,             RETVAR_ADDR_DE
 	dwb NULL,                           RETVAR_STRBUF2
 
 .CountCaughtMons:

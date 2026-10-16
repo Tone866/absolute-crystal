@@ -32,16 +32,17 @@ GoldenrodCityFlypointAndFloriaCallback:
 	endcallback
 
 GoldenrodCityMoveTutorCallback:
-	checkevent EVENT_BEAT_ELITE_FOUR
-	iffalse .MoveTutorDone
+;	checkevent EVENT_BEAT_ELITE_FOUR
+;	iffalse .MoveTutorDone
 	checkitem COIN_CASE
-	iffalse .MoveTutorDisappear
-	readvar VAR_WEEKDAY
-	ifequal WEDNESDAY, .MoveTutorAppear
-	ifequal SATURDAY, .MoveTutorAppear
-.MoveTutorDisappear:
-	disappear GOLDENRODCITY_MOVETUTOR
-	endcallback
+;	iffalse .MoveTutorDisappear
+	iftrue .MoveTutorAppear
+;	readvar VAR_WEEKDAY
+;	ifequal WEDNESDAY, .MoveTutorAppear
+;	ifequal SATURDAY, .MoveTutorAppear
+;.MoveTutorDisappear:
+;	disappear GOLDENRODCITY_MOVETUTOR
+;	endcallback
 
 .MoveTutorAppear:
 	checkflag ENGINE_DAILY_MOVE_TUTOR
@@ -60,7 +61,7 @@ MoveTutorScript:
 	writetext GoldenrodCityMoveTutorAsk4000CoinsOkayText
 	yesorno
 	iffalse .Refused2
-	checkcoins 4000
+	checkcoins 500
 	ifequal HAVE_LESS, .NotEnoughMoney
 	writetext GoldenrodCityMoveTutorWhichMoveShouldITeachText
 	loadmenu .MoveMenuHeader
@@ -121,7 +122,7 @@ MoveTutorScript:
 .TeachMove:
 	writetext GoldenrodCityMoveTutorIfYouUnderstandYouveMadeItText
 	promptbutton
-	takecoins 4000
+	takecoins 500
 	waitsfx
 	playsound SFX_TRANSACTION
 	special DisplayCoinCaseBalance
@@ -514,7 +515,7 @@ GoldenrodCityMoveTutorAskTeachAMoveText:
 
 GoldenrodCityMoveTutorAsk4000CoinsOkayText:
 	text "Das kostet dich"
-	line "4000 Münzen. Okay?"
+	line "500 Münzen.. Okay?"
 	done
 
 GoldenrodCityMoveTutorAwwButTheyreAmazingText:
@@ -584,7 +585,7 @@ GoldenrodCity_MapEvents:
 	warp_event 19,  1, ROUTE_35_GOLDENROD_GATE, 3
 	warp_event  9,  5, GOLDENROD_UNDERGROUND_SWITCH_ROOM_ENTRANCES, 8
 	warp_event  9, 29, GOLDENROD_UNDERGROUND_SWITCH_ROOM_ENTRANCES, 5
-	warp_event 14, 27, GOLDENROD_POKECENTER_1F, 1
+	warp_event 15, 27, GOLDENROD_POKECENTER_1F, 1
 
 	def_coord_events
 

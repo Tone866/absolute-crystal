@@ -2,6 +2,7 @@
 	const LANCESROOM_LANCE
 	const LANCESROOM_MARY
 	const LANCESROOM_OAK
+        const LANCESROOM_RED
 
 LancesRoom_MapScripts:
 	def_scene_scripts
@@ -10,6 +11,8 @@ LancesRoom_MapScripts:
 
 	def_callbacks
 	callback MAPCALLBACK_TILES, LancesRoomDoorsCallback
+	callback MAPCALLBACK_OBJECTS, LancesRoomShowLanceCallback
+;        callback MAPCALLBACK_OBJECTS, LancesRoomShowRedCallback
 
 LancesRoomLockDoorScene:
 	sdefer LancesRoomDoorLocksBehindYouScript
@@ -29,6 +32,25 @@ LancesRoomDoorsCallback:
 .KeepExitClosed:
 	endcallback
 
+LancesRoomShowLanceCallback:
+	checkcode VAR_REMATCHTOPFOUR
+	ifequal 5, .ShowRed
+	appear LANCESROOM_LANCE
+	disappear LANCESROOM_RED
+	endcallback
+.ShowRed:
+	appear LANCESROOM_RED
+	disappear LANCESROOM_LANCE
+	endcallback
+LancesRoomShowRedCallback:
+        checkcode VAR_REMATCHTOPFOUR
+        ifequal 5, .ShowRed
+        disappear LANCESROOM_RED
+        endcallback
+.ShowRed:
+        appear LANCESROOM_RED
+        endcallback
+
 LancesRoomDoorLocksBehindYouScript:
 	applymovement PLAYER, LancesRoom_EnterMovement
 	refreshscreen $86
@@ -42,13 +64,138 @@ LancesRoomDoorLocksBehindYouScript:
 	end
 
 Script_ApproachLanceFromLeft:
+        checkcode VAR_REMATCHTOPFOUR
+        ifequal 5, Script_ApproachRedFromLeft
 	special FadeOutMusic
 	applymovement PLAYER, MovementData_ApproachLanceFromLeft
 	sjump LancesRoomLanceScript
 
 Script_ApproachLanceFromRight:
+        checkcode VAR_REMATCHTOPFOUR
+        ifequal 5, Script_ApproachRedFromRight
 	special FadeOutMusic
 	applymovement PLAYER, MovementData_ApproachLanceFromRight
+        sjump LancesRoomLanceScript
+
+Script_ApproachRedFromLeft:
+        special FadeOutMusic
+        applymovement PLAYER, MovementData_ApproachLanceFromLeft
+        sjump LancesRoomRedScript
+
+Script_ApproachRedFromRight:
+        special FadeOutMusic
+        applymovement PLAYER, MovementData_ApproachLanceFromRight
+        sjump LancesRoomRedScript
+
+LancesRoomRedScript:
+        turnobject LANCESROOM_RED, LEFT
+        opentext
+        writetext RedBattleIntroText
+        waitbutton
+        closetext
+        winlosstext RedBattleWinText, 0
+        setlasttalked LANCESROOM_RED
+        loadtrainer RED, 4
+        startbattle
+        dontrestartmapmusic
+        reloadmapafterbattle
+        setevent EVENT_BEAT_CHAMPION_LANCE
+        checkcode VAR_REMATCHTOPFOUR
+        if_equal 1, .Check1
+        if_equal 2, .Check2
+        if_equal 3, .Check3
+        if_equal 4, .Check4
+        sjump .fin
+.Check1:
+        readvar VAR_REMATCHTOPFOURMAX
+        if_less_than 1, .Win
+        end
+.Check2:
+        readvar VAR_REMATCHTOPFOURMAX
+        if_less_than 2, .Win
+        end
+.Check3:
+        readvar VAR_REMATCHTOPFOURMAX
+        if_less_than 3, .Win
+        end
+.Check4:
+        readvar VAR_REMATCHTOPFOURMAX
+        if_less_than 4, .Win
+        end
+.Win:
+        readvar VAR_REMATCHTOPFOURMAX
+        addval 1
+        writevar VAR_REMATCHTOPFOURMAX
+        waitsfx
+        playsound SFX_TRANSACTION
+        waitsfx
+.fin:
+        opentext
+        writetext RedBattleWinText
+        waitbutton
+        closetext
+        playsound SFX_ENTER_DOOR
+        changeblock 4, 0, $0b ; open door
+        reloadmappart
+        closetext
+        setevent EVENT_LANCES_ROOM_ENTRANCE_CLOSED
+        musicfadeout MUSIC_BEAUTY_ENCOUNTER, 16
+        pause 30
+        showemote EMOTE_SHOCK, LANCESROOM_RED, 15
+        turnobject LANCESROOM_RED, DOWN
+        pause 10
+        turnobject PLAYER, DOWN
+        appear LANCESROOM_MARY
+        applymovement LANCESROOM_MARY, LancesRoomMovementData_MaryRushesIn
+        opentext
+        writetext LancesRoomMaryOhNoOakText
+        waitbutton
+        closetext
+        appear LANCESROOM_OAK
+        applymovement LANCESROOM_OAK, LancesRoomMovementData_OakWalksIn
+        follow LANCESROOM_MARY, LANCESROOM_OAK
+        applymovement LANCESROOM_MARY, LancesRoomMovementData_MaryYieldsToOak
+        stopfollow
+        turnobject LANCESROOM_OAK, UP
+        turnobject LANCESROOM_RED, LEFT
+        opentext
+        writetext LancesRoomOakCongratulationsText
+        waitbutton
+        closetext
+        applymovement LANCESROOM_MARY, LancesRoomMovementData_MaryInterviewChampion
+        turnobject PLAYER, LEFT
+        opentext
+        writetext LancesRoomMaryInterviewText
+        waitbutton
+        closetext
+        applymovement LANCESROOM_RED, LancesRoomMovementData_LancePositionsSelfToGuidePlayerAway
+        turnobject PLAYER, UP
+        opentext
+        writetext RedBattleWinText
+        waitbutton
+        closetext
+        follow LANCESROOM_RED, PLAYER
+        turnobject LANCESROOM_MARY, UP
+        turnobject LANCESROOM_OAK, UP
+        applymovement LANCESROOM_RED, LancesRoomMovementData_LanceLeadsPlayerToHallOfFame
+        stopfollow
+        playsound SFX_EXIT_BUILDING
+        disappear LANCESROOM_RED
+        applymovement PLAYER, LancesRoomMovementData_PlayerExits
+        playsound SFX_EXIT_BUILDING
+        disappear PLAYER
+        applymovement LANCESROOM_MARY, LancesRoomMovementData_MaryTriesToFollow
+        showemote EMOTE_SHOCK, LANCESROOM_MARY, 15
+        opentext
+        writetext LancesRoomMaryNoInterviewText
+        pause 30
+        closetext
+        applymovement LANCESROOM_MARY, LancesRoomMovementData_MaryRunsBackAndForth
+        special FadeOutPalettes
+        pause 15
+        warpfacing UP, HALL_OF_FAME, 4, 13
+        end
+
 LancesRoomLanceScript:
 	turnobject LANCESROOM_LANCE, LEFT
 	opentext
@@ -57,11 +204,62 @@ LancesRoomLanceScript:
 	closetext
 	winlosstext LanceBattleWinText, 0
 	setlasttalked LANCESROOM_LANCE
-	loadtrainer CHAMPION, LANCE
+	checkcode VAR_REMATCHTOPFOUR
+        ifequal 0, .GymRematchZero
+        ifequal 1, .GymRematchOne
+        ifequal 2, .GymRematchTwo
+        ifequal 3, .GymRematchThree
+        ifequal 4, .GymRematchFour
+.GymRematchZero:
+        loadtrainer LANCE, LANCE
+        sjump .FinishedLoadingTrainer
+.GymRematchOne:
+        loadtrainer CHAMPION, 2
+        sjump .FinishedLoadingTrainer
+.GymRematchTwo:
+        loadtrainer CHAMPION, 3
+        sjump .FinishedLoadingTrainer
+.GymRematchThree:
+        loadtrainer CHAMPION, 4
+        sjump .FinishedLoadingTrainer
+.GymRematchFour:
+        loadtrainer CHAMPION, 5
+        sjump .FinishedLoadingTrainer
+.FinishedLoadingTrainer:
 	startbattle
 	dontrestartmapmusic
 	reloadmapafterbattle
 	setevent EVENT_BEAT_CHAMPION_LANCE
+        checkcode VAR_REMATCHTOPFOUR
+        if_equal 1, .Check1
+        if_equal 2, .Check2
+        if_equal 3, .Check3
+        if_equal 4, .Check4
+        sjump .fin
+.Check1:
+        readvar VAR_REMATCHTOPFOURMAX
+        if_less_than 1, .Win
+        end
+.Check2:
+        readvar VAR_REMATCHTOPFOURMAX
+        if_less_than 2, .Win
+        end
+.Check3:
+        readvar VAR_REMATCHTOPFOURMAX
+        if_less_than 3, .Win
+        end
+.Check4:
+        readvar VAR_REMATCHTOPFOURMAX
+        if_less_than 4, .Win
+        end
+.Win:
+        readvar VAR_REMATCHTOPFOURMAX
+        addval 1
+        writevar VAR_REMATCHTOPFOURMAX
+        waitsfx
+        playsound SFX_TRANSACTION
+        waitsfx
+.fin:
 	opentext
 	writetext LanceBattleAfterText
 	waitbutton
@@ -204,6 +402,17 @@ LancesRoomMovementData_MaryRunsBackAndForth:
 	turn_head UP
 	step_end
 
+RedBattleIntroText:
+        text "..."
+        line "..."
+
+        para "Siegfried macht"
+        line "Urlaub..."
+        done
+RedBattleWinText:
+        text "..."
+        line "..."
+	done
 LanceBattleIntroText:
 	text "SIEGFRIED: Ich"
 	line "habe dich"
@@ -356,12 +565,14 @@ LancesRoom_MapEvents:
 	warp_event  5,  1, HALL_OF_FAME, 2
 
 	def_coord_events
+
 	coord_event  4,  5, SCENE_LANCESROOM_APPROACH_LANCE, Script_ApproachLanceFromLeft
 	coord_event  5,  5, SCENE_LANCESROOM_APPROACH_LANCE, Script_ApproachLanceFromRight
 
 	def_bg_events
 
 	def_object_events
-	object_event  5,  3, SPRITE_LANCE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, LancesRoomLanceScript, -1
+	object_event  5,  3, SPRITE_LANCE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, LancesRoomLanceScript, EVENT_LANCES_ROOM_SHOW_LANCE
 	object_event  4,  7, SPRITE_TEACHER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_LANCES_ROOM_OAK_AND_MARY
 	object_event  4,  7, SPRITE_OAK, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_LANCES_ROOM_OAK_AND_MARY
+        object_event  5,  3, SPRITE_RED, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, LancesRoomRedScript, EVENT_LANCES_ROOM_SHOW_RED

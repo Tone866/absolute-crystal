@@ -49,7 +49,32 @@ BrunoScript_Battle:
 	waitbutton
 	closetext
 	winlosstext BrunoScript_BrunoBeatenText, 0
-	loadtrainer BRUNO, BRUNO1
+	checkcode VAR_REMATCHTOPFOUR
+        ifequal 0, .GymRematchZero
+        ifequal 1, .GymRematchOne
+        ifequal 2, .GymRematchTwo
+        ifequal 3, .GymRematchThree
+        ifequal 4, .GymRematchFour
+        ifequal 5, .GymRematchFive
+.GymRematchZero:
+        loadtrainer BRUNO, BRUNO1
+        sjump .FinishedLoadingTrainer
+.GymRematchOne:
+        loadtrainer BRUNO, 2
+        sjump .FinishedLoadingTrainer
+.GymRematchTwo:
+        loadtrainer BRUNO, 3
+        sjump .FinishedLoadingTrainer
+.GymRematchThree:
+        loadtrainer BRUNO, 4
+        sjump .FinishedLoadingTrainer
+.GymRematchFour:
+        loadtrainer BRUNO, 5
+        sjump .FinishedLoadingTrainer
+.GymRematchFive:
+        loadtrainer BRUNO, 6
+        sjump .FinishedLoadingTrainer
+.FinishedLoadingTrainer:
 	startbattle
 	reloadmapafterbattle
 	setevent EVENT_BEAT_ELITE_4_BRUNO

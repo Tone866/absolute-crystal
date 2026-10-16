@@ -9,11 +9,13 @@ Marts:
 	dw MartGoldenrod2F1
 	dw MartGoldenrod2F2
 	dw MartGoldenrod3F
+	dw MartGoldenrod3F2
 	dw MartGoldenrod4F
 	dw MartGoldenrod5F1
 	dw MartGoldenrod5F2
 	dw MartGoldenrod5F3
 	dw MartGoldenrod5F4
+        dw MartGoldenrod5F5
 	dw MartOlivine
 	dw MartEcruteak
 	dw MartMahogany1
@@ -124,6 +126,17 @@ MartGoldenrod3F:
 	db X_ACCURACY
 	db -1 ; end
 
+MartGoldenrod3F2:
+	db 7 ; # items
+	db FIRE_STONE
+	db THUNDERSTONE
+	db WATER_STONE
+	db LEAF_STONE
+	db MOON_STONE
+	db SUN_STONE
+	db METAL_COAT
+	db -1 ; end
+
 MartGoldenrod4F:
 	db 5 ; # items
 	db PROTEIN
@@ -157,13 +170,41 @@ MartGoldenrod5F3:
 	db -1 ; end
 
 MartGoldenrod5F4:
-	db 5 ; # items
+	db 16 ; # items
 	db TM_THUNDERPUNCH
 	db TM_FIRE_PUNCH
 	db TM_ICE_PUNCH
 	db TM_HEADBUTT
 	db TM_ROCK_SMASH
+        db TM_DYNAMICPUNCH
+        db TM_CURSE
+        db TM_ROLLOUT
+        db TM_TOXIC
+        db TM_ZAP_CANNON
+        db TM_PSYCH_UP
+        db TM_HYPER_BEAM
+        db TM_ICY_WIND
+        db TM_GIGA_DRAIN
+        db TM_SOLARBEAM
+        db TM_IRON_TAIL
 	db -1 ; end
+
+MartGoldenrod5F5:
+        db 13 ; # items
+        db TM_DRAGONBREATH
+        db TM_EARTHQUAKE
+        db TM_RETURN
+        db TM_DIG
+        db TM_PSYCHIC_M
+        db TM_SHADOW_BALL
+        db TM_MUD_SLAP
+        db TM_SLUDGE_BOMB
+        db TM_SWIFT
+        db TM_DEFENSE_CURL
+        db TM_THIEF
+        db TM_STEEL_WING
+        db TM_FURY_CUTTER
+        db -1 ; end
 
 MartOlivine:
 	db 9 ; # items

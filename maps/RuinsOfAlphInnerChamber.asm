@@ -2,6 +2,7 @@
 	const RUINSOFALPHINNERCHAMBER_FISHER
 	const RUINSOFALPHINNERCHAMBER_TEACHER
 	const RUINSOFALPHINNERCHAMBER_GRAMPS
+        const RUINSOFALPHINNERCHAMBER_MEW
 
 RuinsOfAlphInnerChamber_MapScripts:
 	def_scene_scripts
@@ -9,6 +10,35 @@ RuinsOfAlphInnerChamber_MapScripts:
 	scene_script RuinsOfAlphInnerChamberStrangePresenceScene, SCENE_RUINSOFALPHINNERCHAMBER_STRANGE_PRESENCE
 
 	def_callbacks
+        callback MAPCALLBACK_OBJECTS, RuinsOfAlphInnerChamberMewCallback
+
+RuinsOfAlphInnerChamberMewCallback:
+        checkevent EVENT_FOUGHT_MEW
+        iftrue .NoAppear
+	checkevent EVENT_SOLVED_KABUTO_PUZZLE
+	iffalse .NoAppear
+	checkevent EVENT_SOLVED_AERODACTYL_PUZZLE
+        iffalse .NoAppear
+	checkevent EVENT_SOLVED_HO_OH_PUZZLE
+        iffalse .NoAppear
+	checkevent EVENT_SOLVED_OMANYTE_PUZZLE
+        iffalse .NoAppear
+        appear RUINSOFALPHINNERCHAMBER_MEW
+        endcallback
+.NoAppear:
+        disappear RUINSOFALPHINNERCHAMBER_MEW
+        endcallback
+
+Mew:
+        faceplayer
+        cry MEW
+        loadwildmon MEW, 40
+        loadvar VAR_BATTLETYPE, BATTLETYPE_SUICUNE
+        startbattle
+        disappear RUINSOFALPHINNERCHAMBER_MEW
+        setevent EVENT_FOUGHT_MEW
+        reloadmapafterbattle
+        end
 
 RuinsOfAlphInnerChamberNoopScene:
 	end
@@ -124,3 +154,4 @@ RuinsOfAlphInnerChamber_MapEvents:
 	object_event  3,  7, SPRITE_FISHER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, RuinsOfAlphInnerChamberFisherScript, EVENT_RUINS_OF_ALPH_INNER_CHAMBER_TOURISTS
 	object_event 14, 13, SPRITE_TEACHER, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, RuinsOfAlphInnerChamberTeacherScript, EVENT_RUINS_OF_ALPH_INNER_CHAMBER_TOURISTS
 	object_event 11, 19, SPRITE_GRAMPS, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, RuinsOfAlphInnerChamberGrampsScript, EVENT_RUINS_OF_ALPH_INNER_CHAMBER_TOURISTS
+        object_event  3, 24, SPRITE_MONSTER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_PINK, OBJECTTYPE_SCRIPT, 0, Mew, EVENT_DISPLAY_MEW

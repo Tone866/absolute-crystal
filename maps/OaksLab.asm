@@ -32,16 +32,46 @@ Oak:
 	writetext OakLabDexCheckText
 	waitbutton
 	special ProfOaksPCBoot
-	writetext OakLabGoodbyeText
+;	writetext OakLabGoodbyeText
+;	waitbutton
+;	closetext
+        checkevent EVENT_OPENED_MT_SILVER
+        iftrue .OakFight
+        writetext OakLabGoodbyeText
+        waitbutton
+        closetext
+	end
+
+.OakFight:
+;	opentext
+	writetext OakFightText
+        yesorno
+	iftrue .OakFightStart
+	writetext OakNoFightText
 	waitbutton
 	closetext
+	end
+
+.OakFightStart:
+	opentext
+	writetext OakFightStartText
+	waitbutton
+	closetext
+	winlosstext OakWinLossText, 0
+	loadtrainer OAK, OAK1
+	startbattle
+	reloadmapafterbattle
+	opentext
+	writetext OakBattleEndText
+        waitbutton
+        closetext
 	end
 
 .OpenMtSilver:
 	writetext OakOpenMtSilverText
 	promptbutton
 	setevent EVENT_OPENED_MT_SILVER
-	sjump .CheckPokedex
+        sjump .CheckPokedex
 
 .Complain:
 	writetext OakNoKantoBadgesText
@@ -76,6 +106,44 @@ OaksLabTrashcan:
 
 OaksLabPC:
 	jumptext OaksLabPCText
+
+OakFightText:
+        text "EICH: <PLAY_G>!"
+        line "Du scheinst viel"
+
+        para "trainiert zu"
+        line "haben. Lass mich"
+
+	para "dich prüfen."
+        done
+
+OakFightStartText:
+        text "Sehr schön!"
+	line "Ich werde mich"
+
+	para "nicht zurück-"
+	line "halten!"
+	done
+
+OakNoFightText:
+	text "Ok, komm wieder"
+	line "wenn du bereit"
+
+	para "bist."
+	done
+
+OakWinLossText:
+	text "Wirklich beein-"
+	line "druckend!"
+	done
+
+OakBattleEndText:
+	text "Du bist wirklich"
+	line "stark geworden!"
+
+	para "Gehe weiter deinen"
+	line "Weg!"
+	done
 
 OakWelcomeKantoText:
 	text "EICH: <PLAY_G>!"

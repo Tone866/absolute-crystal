@@ -350,7 +350,7 @@ Route10Pokecenter1F_Blocks:
 AzaleaPokecenter1F_Blocks:
 VioletPokecenter1F_Blocks:
 Route32Pokecenter1F_Blocks:
-;GoldenrodPokecenter1F_Blocks:
+GoldenrodPokecenter1F_Blocks:
 VermilionPokecenter1F_Blocks:
 PewterPokecenter1F_Blocks:
 FuchsiaPokecenter1F_Blocks:
@@ -539,7 +539,7 @@ CianwoodCity_Blocks:
 	INCBIN "maps/CianwoodCity.blk"
 
 GoldenrodCity_Blocks:
-	INCBIN "maps/GoldenrodCity_jp.blk"
+	INCBIN "maps/GoldenrodCity.blk"
 
 OlivineCity_Blocks:
 	INCBIN "maps/OlivineCity.blk"
@@ -1022,7 +1022,6 @@ BattleTower1F_Blocks:
 BattleTowerBattleRoom_Blocks:
 	INCBIN "maps/BattleTowerBattleRoom.blk"
 
-GoldenrodPokecenter1F_Blocks:
 PokecomCenterAdminOfficeMobile_Blocks:
 	INCBIN "maps/PokecomCenterAdminOfficeMobile.blk"
 

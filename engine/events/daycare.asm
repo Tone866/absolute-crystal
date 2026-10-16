@@ -709,7 +709,8 @@ DayCare_InitBreeding:
 	ld de, wStringBuffer1
 	ld bc, NAME_LENGTH
 	call CopyBytes
-	ld a, [wBaseEggSteps]
+;	ld a, [wBaseEggSteps]
+        ld a, 5
 	ld hl, wEggMonHappiness
 	ld [hli], a
 	xor a

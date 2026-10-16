@@ -1352,6 +1352,14 @@ _RepelWoreOffText::
 	line "nicht mehr."
 	done
 
+_UseAnotherRepelText::
+        text "SCHUTZ wirkt"
+        line "nicht mehr."
+
+	para "Ein weiteres"
+	line "benutzen?"
+	done
+
 _PlayerFoundItemText::
 	text "<PLAYER> findet"
 	line "@"

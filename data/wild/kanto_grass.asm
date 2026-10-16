@@ -346,7 +346,7 @@ KantoGrassWildMons:
 	db 18, SNUBBULL
 	db 18, RATICATE
 	db 18, JIGGLYPUFF
-	db 16, ABRA
+	db 16, VULPIX
 	db 16, ABRA
 	; day
 	db 17, RATTATA
@@ -354,7 +354,7 @@ KantoGrassWildMons:
 	db 18, SNUBBULL
 	db 18, RATICATE
 	db 18, JIGGLYPUFF
-	db 16, ABRA
+	db 16, VULPIX
 	db 16, ABRA
 	; nite
 	db 17, MEOWTH
@@ -374,7 +374,7 @@ KantoGrassWildMons:
 	db 16, ABRA
 	db 17, GROWLITHE
 	db 16, JIGGLYPUFF
-	db 18, KADABRA
+	db 18, VULPIX
 	db 18, KADABRA
 	; day
 	db 17, SNUBBULL
@@ -382,7 +382,7 @@ KantoGrassWildMons:
 	db 16, ABRA
 	db 17, GROWLITHE
 	db 16, JIGGLYPUFF
-	db 18, KADABRA
+	db 18, VULPIX
 	db 18, KADABRA
 	; nite
 	db 17, MEOWTH
@@ -400,18 +400,18 @@ KantoGrassWildMons:
 	db 15, RATTATA
 	db 15, SPEAROW
 	db 15, RATICATE
-	db 15, FEAROW
+	db 15, MANKEY
 	db 15, FEAROW
 	db 18, MAROWAK
-	db 18, MAROWAK
+	db 18, PRIMEAPE
 	; day
 	db 15, RATTATA
 	db 15, SPEAROW
 	db 15, RATICATE
-	db 15, FEAROW
+	db 15, MANKEY
 	db 15, FEAROW
 	db 18, MAROWAK
-	db 18, MAROWAK
+	db 18, PRIMEAPE
 	; nite
 	db 15, RATTATA
 	db 15, VENONAT
@@ -654,16 +654,16 @@ KantoGrassWildMons:
 	db 35, TANGELA
 	db 20, RATICATE
 	db 30, MR__MIME
-	db 28, MR__MIME
-	db 28, MR__MIME
+	db 5, BULBASAUR
+	db 5, CHARMANDER
 	; day
 	db 30, TANGELA
 	db 25, RATTATA
 	db 35, TANGELA
 	db 20, RATICATE
 	db 28, MR__MIME
-	db 30, MR__MIME
-	db 30, MR__MIME
+	db 5, BULBASAUR
+	db 5, CHARMANDER
 	; nite
 	db 30, TANGELA
 	db 25, RATTATA
@@ -822,16 +822,16 @@ KantoGrassWildMons:
 	db 40, RAPIDASH
 	db 42, ARBOK
 	db 41, DODUO
-	db 43, DODRIO
-	db 43, DODRIO
+	db 5, CHIKORITA
+	db 5, CYNDAQUIL
 	; day
 	db 39, TANGELA
 	db 40, PONYTA
 	db 40, RAPIDASH
 	db 42, ARBOK
 	db 41, DODUO
-	db 43, DODRIO
-	db 43, DODRIO
+	db 5, CHIKORITA
+	db 5, CYNDAQUIL
 	; nite
 	db 39, TANGELA
 	db 40, POLIWHIRL

@@ -1,10 +1,34 @@
 	object_const_def
-	const ROUTE24_ROCKET
+        const ROUTE24_ROCKET
+        const ROUTE24_MEWTWO
 
 Route24_MapScripts:
 	def_scene_scripts
 
 	def_callbacks
+        callback MAPCALLBACK_OBJECTS, Route24MewtwoCallback
+
+Route24MewtwoCallback:
+	checkevent EVENT_FOUGHT_MEWTWO
+        iftrue .NoAppear
+        checkcode VAR_BADGES
+        if_less_than 16, .NoAppear
+        appear ROUTE24_MEWTWO
+        endcallback
+.NoAppear:
+	disappear ROUTE24_MEWTWO
+	endcallback
+
+Mewtwo:
+        faceplayer
+        cry MEWTWO
+        loadwildmon MEWTWO, 70
+	loadvar VAR_BATTLETYPE, BATTLETYPE_SUICUNE
+        startbattle
+        disappear ROUTE24_MEWTWO
+        setevent EVENT_FOUGHT_MEWTWO
+        reloadmapafterbattle
+        end
 
 Route24RocketScript:
 	faceplayer
@@ -127,3 +151,4 @@ Route24_MapEvents:
 
 	def_object_events
 	object_event  8,  7, SPRITE_ROCKET, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route24RocketScript, EVENT_ROUTE_24_ROCKET
+        object_event  2, 13, SPRITE_MONSTERSTILL, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_PINK, OBJECTTYPE_SCRIPT, 0, Mewtwo, EVENT_DISPLAY_MEWTWO

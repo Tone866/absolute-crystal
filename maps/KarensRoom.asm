@@ -49,7 +49,32 @@ KarenScript_Battle:
 	waitbutton
 	closetext
 	winlosstext KarenScript_KarenBeatenText, 0
-	loadtrainer KAREN, KAREN1
+	checkcode VAR_REMATCHTOPFOUR
+        ifequal 0, .GymRematchZero
+        ifequal 1, .GymRematchOne
+        ifequal 2, .GymRematchTwo
+        ifequal 3, .GymRematchThree
+        ifequal 4, .GymRematchFour
+        ifequal 5, .GymRematchFive
+.GymRematchZero:
+        loadtrainer KAREN, KAREN1
+        sjump .FinishedLoadingTrainer
+.GymRematchOne:
+        loadtrainer KAREN, 2
+        sjump .FinishedLoadingTrainer
+.GymRematchTwo:
+        loadtrainer KAREN, 3
+        sjump .FinishedLoadingTrainer
+.GymRematchThree:
+        loadtrainer KAREN, 4
+        sjump .FinishedLoadingTrainer
+.GymRematchFour:
+        loadtrainer KAREN, 5
+        sjump .FinishedLoadingTrainer
+.GymRematchFive:
+        loadtrainer KAREN, 6
+        sjump .FinishedLoadingTrainer
+.FinishedLoadingTrainer:
 	startbattle
 	reloadmapafterbattle
 	setevent EVENT_BEAT_ELITE_4_KAREN

@@ -66,6 +66,16 @@ RuinsOfAlphOmanyteChamberPuzzle:
 	reloadmappart
 	playsound SFX_STRENGTH
 	earthquake 80
+        checkevent EVENT_SOLVED_KABUTO_PUZZLE
+        iffalse .next
+        checkevent EVENT_SOLVED_AERODACTYL_PUZZLE
+        iffalse .next
+        checkevent EVENT_SOLVED_HO_OH_PUZZLE
+        iffalse .next
+        checkevent EVENT_SOLVED_OMANYTE_PUZZLE
+        iffalse .next
+        cry MEW
+.next:
 	applymovement PLAYER, RuinsOfAlphOmanyteChamberSkyfallTopMovement
 	playsound SFX_KINESIS
 	waitsfx

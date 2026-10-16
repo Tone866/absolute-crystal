@@ -33,6 +33,8 @@ BlackthornGymClairScript:
 	iftrue .AlreadyGotBadge
 	checkevent EVENT_BEAT_CLAIR
 	iftrue .FightDone
+        checkcode VAR_REMATCHJOHTO
+        if_greater_than 0, .GymRematch
 	writetext ClairIntroText
 	waitbutton
 	closetext
@@ -60,6 +62,107 @@ BlackthornGymClairScript:
 	waitbutton
 	closetext
 	end
+.GymRematch:
+        writetext CLAIRRematchText
+        waitbutton
+        closetext
+        winlosstext CLAIRRematchLossText, 0
+        checkcode VAR_REMATCHJOHTO
+        ifequal 1, .GymRematchOne
+        ifequal 2, .GymRematchTwo
+        ifequal 3, .GymRematchThree
+        ifequal 4, .GymRematchFour
+        ifequal 5, .GymRematchFive
+        ifequal 6, .GymRematchSix
+        ifequal 7, .GymRematchSeven
+.GymRematchOne:
+        loadtrainer CLAIR, 2
+        sjump .FinishedLoadingTrainer
+.GymRematchTwo:
+        loadtrainer CLAIR, 3
+        sjump .FinishedLoadingTrainer
+.GymRematchThree:
+        loadtrainer CLAIR, 4
+        sjump .FinishedLoadingTrainer
+.GymRematchFour:
+        loadtrainer CLAIR, 5
+        sjump .FinishedLoadingTrainer
+.GymRematchFive:
+        loadtrainer CLAIR, 6
+        sjump .FinishedLoadingTrainer
+.GymRematchSix:
+        loadtrainer CLAIR, 7
+        sjump .FinishedLoadingTrainer
+.GymRematchSeven:
+        loadtrainer CLAIR, 8
+        sjump .FinishedLoadingTrainer
+
+.FinishedLoadingTrainer:
+        startbattle
+        reloadmapafterbattle
+        setevent EVENT_BEAT_CLAIR
+        playsound SFX_GET_BADGE
+        waitsfx
+        checkevent EVENT_BEAT_FALKNER
+        iffalse .End
+        checkevent EVENT_BEAT_BUGSY
+        iffalse .End
+        checkevent EVENT_BEAT_WHITNEY
+        iffalse .End
+        checkevent EVENT_BEAT_MORTY
+        iffalse .End
+        checkevent EVENT_BEAT_CHUCK
+        iffalse .End
+        checkevent EVENT_BEAT_JASMINE
+        iffalse .End
+        checkevent EVENT_BEAT_PRYCE
+        iffalse .End
+        checkevent EVENT_BEAT_CLAIR
+        iffalse .End
+
+        checkcode VAR_REMATCHJOHTO
+        if_equal 1, .Check1
+        if_equal 2, .Check2
+        if_equal 3, .Check3
+        if_equal 4, .Check4
+        if_equal 5, .Check5
+        if_equal 6, .Check6
+        end
+.End:
+        end
+.Win:
+        readvar VAR_REMATCHJOHTOMAX
+        addval 1
+        writevar VAR_REMATCHJOHTOMAX
+        waitsfx
+        playsound SFX_TRANSACTION
+        waitsfx
+        end
+
+.Check1:
+        readvar VAR_REMATCHJOHTOMAX
+        if_less_than 1, .Win
+        end
+.Check2:
+        readvar VAR_REMATCHJOHTOMAX
+        if_less_than 2, .Win
+        end
+.Check3:
+        readvar VAR_REMATCHJOHTOMAX
+        if_less_than 3, .Win
+        end
+.Check4:
+        readvar VAR_REMATCHJOHTOMAX
+        if_less_than 4, .Win
+        end
+.Check5:
+        readvar VAR_REMATCHJOHTOMAX
+        if_less_than 5, .Win
+        end
+.Check6:
+        readvar VAR_REMATCHJOHTOMAX
+        if_less_than 6, .Win
+        end
 
 .AlreadyGotBadge:
 	checkevent EVENT_GOT_TM24_DRAGONBREATH
@@ -146,6 +249,18 @@ BlackthornGymStatue:
 .Beaten:
 	gettrainername STRING_BUFFER_4, CLAIR, CLAIR1
 	jumpstd GymStatue2Script
+
+CLAIRRematchText:
+        text "Eine Revanche?"
+        line "Alles klar,"
+
+        para "aber ich bin"
+        line "stärker geworden!"
+        done
+CLAIRRematchLossText:
+        text "Ich werde weiter"
+        line "trainieren..."
+        done
 
 ClairIntroText:
 	text "Ich bin SANDRA."

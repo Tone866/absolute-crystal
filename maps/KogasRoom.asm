@@ -49,7 +49,32 @@ KogaScript_Battle:
 	waitbutton
 	closetext
 	winlosstext KogaScript_KogaBeatenText, 0
-	loadtrainer KOGA, KOGA1
+	checkcode VAR_REMATCHTOPFOUR
+        ifequal 0, .GymRematchZero
+        ifequal 1, .GymRematchOne
+        ifequal 2, .GymRematchTwo
+        ifequal 3, .GymRematchThree
+        ifequal 4, .GymRematchFour
+        ifequal 5, .GymRematchFive
+.GymRematchZero:
+        loadtrainer KOGA, KOGA1
+        sjump .FinishedLoadingTrainer
+.GymRematchOne:
+        loadtrainer KOGA, 2
+        sjump .FinishedLoadingTrainer
+.GymRematchTwo:
+        loadtrainer KOGA, 3
+        sjump .FinishedLoadingTrainer
+.GymRematchThree:
+        loadtrainer KOGA, 4
+        sjump .FinishedLoadingTrainer
+.GymRematchFour:
+        loadtrainer KOGA, 5
+        sjump .FinishedLoadingTrainer
+.GymRematchFive:
+        loadtrainer KOGA, 6
+        sjump .FinishedLoadingTrainer
+.FinishedLoadingTrainer:
 	startbattle
 	reloadmapafterbattle
 	setevent EVENT_BEAT_ELITE_4_KOGA

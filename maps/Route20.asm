@@ -2,12 +2,24 @@
 	const ROUTE20_SWIMMER_GIRL1
 	const ROUTE20_SWIMMER_GIRL2
 	const ROUTE20_SWIMMER_GUY
+        const ROUTE20_ARKTOS
 
 Route20_MapScripts:
 	def_scene_scripts
 
 	def_callbacks
 	callback MAPCALLBACK_NEWMAP, Route20ClearRocksCallback
+
+Arktos:
+        faceplayer
+        cry ARTICUNO
+        loadwildmon ARTICUNO, 40
+	loadvar VAR_BATTLETYPE, BATTLETYPE_SUICUNE
+        startbattle
+        disappear ROUTE20_ARKTOS
+        setevent EVENT_FOUGHT_ARKTOS
+        reloadmapafterbattle
+        end
 
 Route20ClearRocksCallback:
 	setevent EVENT_CINNABAR_ROCKS_CLEARED
@@ -132,3 +144,4 @@ Route20_MapEvents:
 	object_event 52,  8, SPRITE_SWIMMER_GIRL, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerSwimmerfNicole, -1
 	object_event 45, 13, SPRITE_SWIMMER_GIRL, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerSwimmerfLori, -1
 	object_event 12, 13, SPRITE_SWIMMER_GUY, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 3, TrainerSwimmermCameron, -1
+        object_event 30, 6, SPRITE_BIRDSTILL, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Arktos, EVENT_FOUGHT_ARKTOS

@@ -61,6 +61,8 @@ CeruleanGymMistyScript:
 	opentext
 	checkflag ENGINE_CASCADEBADGE
 	iftrue .FightDone
+        checkcode VAR_REMATCHKANTO
+        if_greater_than 0, .GymRematch
 	writetext MistyIntroText
 	waitbutton
 	closetext
@@ -82,6 +84,107 @@ CeruleanGymMistyScript:
 	waitbutton
 	closetext
 	end
+.GymRematch:
+        writetext MISTYRematchText
+        waitbutton
+        closetext
+        winlosstext MISTYRematchLossText, 0
+        checkcode VAR_REMATCHKANTO
+        ifequal 1, .GymRematchOne
+        ifequal 2, .GymRematchTwo
+        ifequal 3, .GymRematchThree
+        ifequal 4, .GymRematchFour
+        ifequal 5, .GymRematchFive
+        ifequal 6, .GymRematchSix
+        ifequal 7, .GymRematchSeven
+.GymRematchOne:
+        loadtrainer MISTY, 2
+        sjump .FinishedLoadingTrainer
+.GymRematchTwo:
+        loadtrainer MISTY, 3
+        sjump .FinishedLoadingTrainer
+.GymRematchThree:
+        loadtrainer MISTY, 4
+        sjump .FinishedLoadingTrainer
+.GymRematchFour:
+        loadtrainer MISTY, 5
+        sjump .FinishedLoadingTrainer
+.GymRematchFive:
+        loadtrainer MISTY, 6
+        sjump .FinishedLoadingTrainer
+.GymRematchSix:
+        loadtrainer MISTY, 7
+        sjump .FinishedLoadingTrainer
+.GymRematchSeven:
+        loadtrainer MISTY, 8
+        sjump .FinishedLoadingTrainer
+
+.FinishedLoadingTrainer:
+        startbattle
+        reloadmapafterbattle
+        setevent EVENT_BEAT_MISTY
+        playsound SFX_GET_BADGE
+        waitsfx
+        checkevent EVENT_BEAT_BROCK
+        iffalse .End
+        checkevent EVENT_BEAT_MISTY
+        iffalse .End
+        checkevent EVENT_BEAT_LTSURGE
+        iffalse .End
+        checkevent EVENT_BEAT_ERIKA
+        iffalse .End
+        checkevent EVENT_BEAT_JANINE
+        iffalse .End
+        checkevent EVENT_BEAT_SABRINA
+        iffalse .End
+        checkevent EVENT_BEAT_BLAINE
+        iffalse .End
+        checkevent EVENT_BEAT_BLUE
+        iffalse .End
+
+        checkcode VAR_REMATCHKANTO
+        if_equal 1, .Check1
+        if_equal 2, .Check2
+        if_equal 3, .Check3
+        if_equal 4, .Check4
+        if_equal 5, .Check5
+        if_equal 6, .Check6
+        end
+.End:
+        end
+.Win:
+        readvar VAR_REMATCHKANTOMAX
+        addval 1
+        writevar VAR_REMATCHKANTOMAX
+        waitsfx
+        playsound SFX_TRANSACTION
+        waitsfx
+        end
+
+.Check1:
+        readvar VAR_REMATCHKANTOMAX
+        if_less_than 1, .Win
+        end
+.Check2:
+        readvar VAR_REMATCHKANTOMAX
+        if_less_than 2, .Win
+        end
+.Check3:
+        readvar VAR_REMATCHKANTOMAX
+        if_less_than 3, .Win
+        end
+.Check4:
+        readvar VAR_REMATCHKANTOMAX
+        if_less_than 4, .Win
+        end
+.Check5:
+        readvar VAR_REMATCHKANTOMAX
+        if_less_than 5, .Win
+        end
+.Check6:
+        readvar VAR_REMATCHKANTOMAX
+        if_less_than 6, .Win
+        end
 
 TrainerSwimmerfDiana:
 	trainer SWIMMERF, DIANA, EVENT_BEAT_SWIMMERF_DIANA, SwimmerfDianaSeenText, SwimmerfDianaBeatenText, 0, .Script
@@ -194,6 +297,18 @@ CeruleanGymGruntBacksAwayMovement:
 	slow_step UP
 	remove_fixed_facing
 	step_end
+
+MISTYRematchText:
+        text "Eine Revanche?"
+        line "Alles klar,"
+
+        para "aber ich bin"
+        line "stärker geworden!"
+        done
+MISTYRematchLossText:
+        text "Ich werde weiter"
+        line "trainieren..."
+        done
 
 CeruleanGymGruntIntroText:
 	text "Ups! Tut ja so"

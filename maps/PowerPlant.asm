@@ -6,6 +6,7 @@
 	const POWERPLANT_GYM_GUIDE3
 	const POWERPLANT_MANAGER
 	const POWERPLANT_FOREST
+        const POWERPLANT_ZAPDOS
 
 PowerPlant_MapScripts:
 	def_scene_scripts
@@ -13,6 +14,17 @@ PowerPlant_MapScripts:
 	scene_script PowerPlantNoop2Scene, SCENE_POWERPLANT_GUARD_GETS_PHONE_CALL
 
 	def_callbacks
+
+Zapdos:
+        faceplayer
+        cry ZAPDOS
+        loadwildmon ZAPDOS, 40
+	loadvar VAR_BATTLETYPE, BATTLETYPE_SUICUNE
+        startbattle
+        disappear POWERPLANT_ZAPDOS
+        setevent EVENT_FOUGHT_ZAPDOS
+        reloadmapafterbattle
+        end
 
 PowerPlantNoop1Scene:
 	end
@@ -418,3 +430,4 @@ PowerPlant_MapEvents:
 	object_event  7,  2, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, PowerPlantGymGuide4Script, -1
 	object_event 14, 10, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, PowerPlantManager, -1
 	object_event  5,  5, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Forest, -1
+        object_event 15, 10, SPRITE_BIRDSTILL, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, Zapdos, EVENT_FOUGHT_ZAPDOS

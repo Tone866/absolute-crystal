@@ -1,7 +1,21 @@
+	object_const_def
+        const ROUTE22_LAVADOS
+
 Route22_MapScripts:
 	def_scene_scripts
 
 	def_callbacks
+
+Lavados:
+        faceplayer
+        cry MOLTRES
+        loadwildmon MOLTRES, 40
+	loadvar VAR_BATTLETYPE, BATTLETYPE_SUICUNE
+        startbattle
+        disappear ROUTE22_LAVADOS
+        setevent EVENT_FOUGHT_LAVADOS
+        reloadmapafterbattle
+        end
 
 VictoryRoadEntranceSign:
 	jumptext VictoryRoadEntranceSignText
@@ -25,3 +39,4 @@ Route22_MapEvents:
 	bg_event 15,  7, BGEVENT_READ, VictoryRoadEntranceSign
 
 	def_object_events
+        object_event 32, 2, SPRITE_BIRDSTILL, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, Lavados, EVENT_FOUGHT_LAVADOS

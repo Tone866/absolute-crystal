@@ -88,6 +88,12 @@ PlateauRivalBattleCommon:
 	waitbutton
 	closetext
 	setevent EVENT_INDIGO_PLATEAU_POKECENTER_RIVAL
+        checkevent EVENT_BEAT_RIVAL4
+        iftrue .Battle4
+        checkevent EVENT_BEAT_RIVAL3
+        iftrue .Battle3
+        checkevent EVENT_BEAT_RIVAL2
+        iftrue .Battle2
 	checkevent EVENT_GOT_TOTODILE_FROM_ELM
 	iftrue .Totodile
 	checkevent EVENT_GOT_CHIKORITA_FROM_ELM
@@ -99,6 +105,7 @@ PlateauRivalBattleCommon:
 	startbattle
 	dontrestartmapmusic
 	reloadmapafterbattle
+        setevent EVENT_BEAT_RIVAL2
 	sjump PlateauRivalPostBattle
 
 .Totodile:
@@ -108,6 +115,7 @@ PlateauRivalBattleCommon:
 	startbattle
 	dontrestartmapmusic
 	reloadmapafterbattle
+        setevent EVENT_BEAT_RIVAL2
 	sjump PlateauRivalPostBattle
 
 .Chikorita:
@@ -117,7 +125,73 @@ PlateauRivalBattleCommon:
 	startbattle
 	dontrestartmapmusic
 	reloadmapafterbattle
+        setevent EVENT_BEAT_RIVAL2
 	sjump PlateauRivalPostBattle
+
+.Battle2:
+        checkevent EVENT_GOT_TOTODILE_FROM_ELM
+        iftrue .Totodile2
+        checkevent EVENT_GOT_CHIKORITA_FROM_ELM
+        iftrue .Chikorita2
+        loadtrainer RIVAL2, RIVAL2_3_TOTODILE
+        startbattle
+        reloadmapafterbattle
+        setevent EVENT_BEAT_RIVAL3
+        sjump PlateauRivalPostBattle
+.Totodile2:
+        loadtrainer RIVAL2, RIVAL2_3_CHIKORITA
+        startbattle
+        reloadmapafterbattle
+        setevent EVENT_BEAT_RIVAL3
+        sjump PlateauRivalPostBattle
+.Chikorita2:
+        loadtrainer RIVAL2, RIVAL2_3_CYNDAQUIL
+        startbattle
+        reloadmapafterbattle
+        setevent EVENT_BEAT_RIVAL3
+        sjump PlateauRivalPostBattle
+
+.Battle3:
+        checkevent EVENT_GOT_TOTODILE_FROM_ELM
+        iftrue .Totodile3
+        checkevent EVENT_GOT_CHIKORITA_FROM_ELM
+        iftrue .Chikorita3
+        loadtrainer RIVAL2, RIVAL2_4_TOTODILE
+        startbattle
+        reloadmapafterbattle
+        setevent EVENT_BEAT_RIVAL4
+        sjump PlateauRivalPostBattle
+.Totodile3:
+        loadtrainer RIVAL2, RIVAL2_4_CHIKORITA
+        startbattle
+        reloadmapafterbattle
+        setevent EVENT_BEAT_RIVAL4
+        sjump PlateauRivalPostBattle
+.Chikorita3:
+        loadtrainer RIVAL2, RIVAL2_4_CYNDAQUIL
+        startbattle
+        reloadmapafterbattle
+        setevent EVENT_BEAT_RIVAL4
+        sjump PlateauRivalPostBattle
+.Battle4:
+        checkevent EVENT_GOT_TOTODILE_FROM_ELM
+        iftrue .Totodile4
+        checkevent EVENT_GOT_CHIKORITA_FROM_ELM
+        iftrue .Chikorita4
+        loadtrainer RIVAL2, RIVAL2_5_TOTODILE
+        startbattle
+        reloadmapafterbattle
+        sjump PlateauRivalPostBattle
+.Totodile4:
+        loadtrainer RIVAL2, RIVAL2_5_CHIKORITA
+        startbattle
+        reloadmapafterbattle
+        sjump PlateauRivalPostBattle
+.Chikorita4:
+        loadtrainer RIVAL2, RIVAL2_5_CYNDAQUIL
+        startbattle
+        reloadmapafterbattle
+        sjump PlateauRivalPostBattle
 
 PlateauRivalPostBattle:
 	playmusic MUSIC_RIVAL_AFTER
@@ -126,7 +200,7 @@ PlateauRivalPostBattle:
 	waitbutton
 	closetext
 	turnobject PLAYER, DOWN
-	applymovement INDIGOPLATEAUPOKECENTER1F_RIVAL, PlateauRivalLeavesMovement
+	applymovement INDIGOPLATEAUPOKECENTER1F_RIVAL, PlateauRivalLeavesNewMovement
 	disappear INDIGOPLATEAUPOKECENTER1F_RIVAL
 	setscene SCENE_INDIGOPLATEAUPOKECENTER1F_RIVAL_BATTLE
 	playmapmusic
@@ -200,6 +274,214 @@ PlateauRivalLeavesMovement:
 	step DOWN
 	step DOWN
 	step_end
+
+PlateauRivalLeavesNewMovement:
+        step DOWN
+        step_end
+
+LigaLevelScript:
+        faceplayer
+        opentext
+        checkcode VAR_REMATCHTOPFOUR
+	checkevent EVENT_BEAT_ELITE_FOUR
+        iftrue .LigaLevelWinScript
+        writetext LigaLevelNoBadgesText
+        waitbutton
+        closetext
+        end
+
+.LigaLevelWinScript:
+        readvar VAR_REMATCHTOPFOUR
+        writetext LigaLevelWinText
+        waitbutton
+
+        checkcode VAR_REMATCHTOPFOURMAX
+        ifequal 0, .max1
+        ifequal 1, .max2
+        ifequal 2, .max3
+        ifequal 3, .max4
+        ifequal 4, .max5
+
+.max1:
+        loadmenu LigaSelectLevel
+        sjump .MenuEnd
+.max2:
+        loadmenu LigaSelectLevel2
+        sjump .MenuEnd
+.max3:
+        loadmenu LigaSelectLevel3
+        sjump .MenuEnd
+.max4:
+        loadmenu LigaSelectLevel4
+        sjump .MenuEnd
+.max5:
+        loadmenu LigaSelectLevel5
+        sjump .MenuEnd
+
+.MenuEnd:
+        verticalmenu
+        closewindow
+        ifequal 2, .LigaLevelOne
+        ifequal 3, .LigaLevelTwo
+        ifequal 4, .LigaLevelThree
+        ifequal 5, .LigaLevelFour
+        ifequal 6, .LigaLevelFive
+        ifequal 1, .LigaLevelZero
+        end
+
+.LigaLevelOne:
+        readvar VAR_REMATCHTOPFOUR
+        setval 1
+        writevar VAR_REMATCHTOPFOUR
+        sjump .LigaResetGyms
+        end
+
+.LigaLevelTwo:
+        readvar VAR_REMATCHTOPFOUR
+        setval 2
+        writevar VAR_REMATCHTOPFOUR
+        sjump .LigaResetGyms
+        end
+
+.LigaLevelThree:
+        readvar VAR_REMATCHTOPFOUR
+        setval 3
+        writevar VAR_REMATCHTOPFOUR
+        sjump .LigaResetGyms
+        end
+
+.LigaLevelFour:
+        readvar VAR_REMATCHTOPFOUR
+        setval 4
+        writevar VAR_REMATCHTOPFOUR
+        sjump .LigaResetGyms
+        end
+
+.LigaLevelFive:
+        readvar VAR_REMATCHTOPFOUR
+        setval 5
+        writevar VAR_REMATCHTOPFOUR
+        sjump .LigaResetGyms
+        end
+
+.LigaLevelZero:
+        readvar VAR_REMATCHTOPFOUR
+        setval 0
+        writevar VAR_REMATCHTOPFOUR
+        sjump .LigaResetGyms
+        end
+
+.LigaResetGyms:
+        waitsfx
+        playsound SFX_TRANSACTION
+        waitsfx
+        writetext .YouChoseText
+        waitbutton
+        closetext
+        end
+.AbortText:
+        text "Ok es bleibt bei:"
+        line "Lvl @"
+;       text_decimal wScriptVar, 1, 1
+        text_decimal wRematchTopFour, 1, 1
+        text "!"
+        done
+
+.YouChoseText:
+        text "Du hast gewählt:"
+        line "Lvl @"
+;       text_decimal wScriptVar, 1, 1
+        text_decimal wRematchTopFour, 1, 1
+        text "!"
+
+        para "Gegner werden"
+        line "zurückgesetzt."
+        done
+
+LigaSelectLevel:
+        db MENU_BACKUP_TILES ; flags
+;        menu_coords 0, 0, 5, TEXTBOX_Y - 1
+        menu_coords 0, 0, 8, 17
+        dw .MenuData
+        db 1 ; default option
+        end
+
+.MenuData:
+        db STATICMENU_CURSOR ; flags
+        db 2 ; items
+        db "0@"
+        db "1@"
+        end
+
+LigaSelectLevel2:
+        db MENU_BACKUP_TILES ; flags
+;        menu_coords 0, 0, 5, TEXTBOX_Y - 1
+        menu_coords 0, 0, 8, 17
+        dw .MenuData2
+        db 1 ; default option
+        end
+
+.MenuData2:
+        db STATICMENU_CURSOR ; flags
+        db 3 ; items
+        db "0@"
+        db "1@"
+        db "2@"
+        end
+
+LigaSelectLevel3:
+        db MENU_BACKUP_TILES ; flags
+;        menu_coords 0, 0, 5, TEXTBOX_Y - 1
+        menu_coords 0, 0, 8, 17
+        dw .MenuData3
+        db 1 ; default option
+        end
+
+.MenuData3:
+        db STATICMENU_CURSOR ; flags
+        db 4 ; items
+        db "0@"
+        db "1@"
+        db "2@"
+        db "3@"
+        end
+
+LigaSelectLevel4:
+        db MENU_BACKUP_TILES ; flags
+;        menu_coords 0, 0, 5, TEXTBOX_Y - 1
+        menu_coords 0, 0, 8, 17
+        dw .MenuData4
+        db 1 ; default option
+        end
+
+.MenuData4:
+        db STATICMENU_CURSOR ; flags
+        db 5 ; items
+        db "0@"
+        db "1@"
+        db "2@"
+        db "3@"
+        db "4@"
+        end
+
+LigaSelectLevel5:
+        db MENU_BACKUP_TILES ; flags
+;        menu_coords 0, 0, 5, TEXTBOX_Y - 1
+        menu_coords 0, 0, 8, 17
+        dw .MenuData5
+        db 1 ; default option
+        end
+
+.MenuData5:
+        db STATICMENU_CURSOR ; flags
+        db 6 ; items
+        db "0@"
+        db "1@"
+        db "2@"
+        db "3@"
+        db "4@"
+        db "5@"
+        end
 
 IndigoPlateauPokecenter1FCooltrainerMText:
 	text "In der #MON"
@@ -304,6 +586,33 @@ AbraText:
 	text "ABRA: Aabra…"
 	done
 
+LigaLevelWinText:
+        text "Möchtest du dein"
+        line "Rematch-LVL"
+
+        para "ändern oder"
+        line "zurücksetzen?"
+
+        para "Aktuelles Lvl"
+        line "ist: @"
+        text_decimal wRematchTopFour, 1, 1
+        text "!"
+        done
+
+LigaLevelNoBadgesText:
+        text "Ich bin der"
+        line "REMATCH VERMITTLER"
+
+        para "Wenn du die Liga"
+        line "besiegt hast,"
+
+        para "kannst du die"
+        line "sie zu einem"
+
+        para "Rematch heraus-"
+        line "fordern."
+        done
+
 IndigoPlateauPokecenter1F_MapEvents:
 	db 0, 0 ; filler
 
@@ -314,8 +623,8 @@ IndigoPlateauPokecenter1F_MapEvents:
 	warp_event 14,  3, WILLS_ROOM, 1
 
 	def_coord_events
-	coord_event 16,  4, SCENE_INDIGOPLATEAUPOKECENTER1F_RIVAL_BATTLE, PlateauRivalBattle1
-	coord_event 17,  4, SCENE_INDIGOPLATEAUPOKECENTER1F_RIVAL_BATTLE, PlateauRivalBattle2
+;	coord_event 16,  4, SCENE_INDIGOPLATEAUPOKECENTER1F_RIVAL_BATTLE, PlateauRivalBattle1
+;	coord_event 17,  4, SCENE_INDIGOPLATEAUPOKECENTER1F_RIVAL_BATTLE, PlateauRivalBattle2
 
 	def_bg_events
 
@@ -323,6 +632,7 @@ IndigoPlateauPokecenter1F_MapEvents:
 	object_event  3,  7, SPRITE_NURSE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, IndigoPlateauPokecenter1FNurseScript, -1
 	object_event 11,  7, SPRITE_CLERK, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, IndigoPlateauPokecenter1FClerkScript, -1
 	object_event 11, 11, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_WANDER, 2, 2, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, IndigoPlateauPokecenter1FCooltrainerMScript, -1
-	object_event 16,  9, SPRITE_RIVAL, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_INDIGO_PLATEAU_POKECENTER_RIVAL
+	object_event 14,  2, SPRITE_RIVAL, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, PlateauRivalBattleCommon, -1
 	object_event  1,  9, SPRITE_GRAMPS, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, TeleportGuyScript, EVENT_TELEPORT_GUY
 	object_event  0,  9, SPRITE_JYNX, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, AbraScript, EVENT_TELEPORT_GUY
+        object_event 16,  1, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, LigaLevelScript, -1

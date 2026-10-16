@@ -281,24 +281,6 @@ MrPokemonsHouse_OakText1:
 	para "#MON für die"
 	line "Besorgung gab."
 
-	para "Für Forscher wie"
-	line "PROF. LIND und"
-
-	para "mich sind #MON"
-	line "unsere Freunde."
-
-	para "Er erkannte, dass"
-	line "du deine #MON"
-
-	para "liebevoll und"
-	line "umsichtig"
-	cont "umsorgst."
-
-	para "…Ah!"
-
-	para "Du scheinst zuver-"
-	line "lässig zu sein."
-
 	para "Möchtest du mir"
 	line "auch helfen?"
 
@@ -312,9 +294,6 @@ MrPokemonsHouse_OakText1:
 	para "über #MON,"
 	line "die man gefangen"
 	cont "oder gesehen hat!"
-
-	para "Er ist eine Art"
-	line "Hi-Tech-Lexikon!"
 	done
 
 MrPokemonsHouse_GetDexText:
@@ -329,9 +308,6 @@ MrPokemonsHouse_OakText2:
 
 	para "ständige den"
 	line "#DEX!"
-
-	para "Ich bin schon zu"
-	line "lange hier."
 
 	para "Ich muss nach"
 	line "DUKATIA CITY zu"

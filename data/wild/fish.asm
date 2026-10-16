@@ -51,7 +51,7 @@ FishGroups:
 .Ocean_Super:
 	db  40 percent,     CHINCHOU,   40
 	db  70 percent,     time_group 3
-	db  90 percent + 1, TENTACRUEL, 40
+	db  90 percent + 1, REMORAID,   24
 	db 100 percent,     LANTURN,    40
 
 .Lake_Old:

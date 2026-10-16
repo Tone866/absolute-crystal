@@ -26,6 +26,26 @@ StartBattleWithMapTrainerScript:
 	reloadmapafterbattle
 	trainerflagaction SET_FLAG
 	loadmem wRunningTrainerBattleScript, -1
+	scripttalkafter
+	end
 
 AlreadyBeatenTrainerScript:
+        opentext
+        writetext RematchText
+        yesorno
+        iffalse .no
+        closetext
+        loadtemptrainer
+        startbattle
+        reloadmapafterbattle
+        loadmem wRunningTrainerBattleScript, -1
+	end
+.no:
+;	closetext
 	scripttalkafter
+	end
+
+RematchText:
+        text "Willst du eine"
+	line "Revanche?"
+        done

@@ -3793,6 +3793,16 @@ TryToRunAwayFromBattle:
 	jr .print_inescapable_text
 
 .cant_run_from_trainer
+; run
+IF DEF(_DEBUG)
+	call FaintEnemyPokemon
+	call WinTrainerBattle
+	call WaitSFX
+	call LoadTilemapToTempTilemap
+	scf
+	ret
+ENDC
+; run
 	ld hl, BattleText_TheresNoEscapeFromTrainerBattle
 
 .print_inescapable_text
@@ -4637,7 +4647,7 @@ CheckDanger:
 
 .no_danger
 	ld hl, wLowHealthAlarm
-	res DANGER_ON_F, [hl]
+	ld [hl], 0
 	jr .done
 
 .danger

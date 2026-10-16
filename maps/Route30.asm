@@ -189,10 +189,19 @@ TrainerYoungsterMikey:
 .Script:
 	endifjustbattled
 	opentext
+	sjump .LoadFight
 	writetext YoungsterMikeyAfterText
 	waitbutton
 	closetext
+
+.LoadFight:
+        loadtrainer YOUNGSTER, JOEY4
+        startbattle
+        reloadmapafterbattle
+;        loadmem wJoeyFightCount, 4
+;        clearflag ENGINE_JOEY_READY_FOR_REMATCH
 	end
+
 
 TrainerBugCatcherDon:
 	trainer BUG_CATCHER, DON, EVENT_BEAT_BUG_CATCHER_DON, BugCatcherDonSeenText, BugCatcherDonBeatenText, 0, .Script

@@ -1972,7 +1972,16 @@ wMartItem7BCD:: ds 3
 wMartItem8BCD:: ds 3
 wMartItem9BCD:: ds 3
 wMartItem10BCD:: ds 3
-
+wMartItem11BCD:: ds 3
+wMartItem12BCD:: ds 3
+wMartItem13BCD:: ds 3
+wMartItem14BCD:: ds 3
+wMartItem15BCD:: ds 3
+wMartItem16BCD:: ds 3
+wMartItem17BCD:: ds 3
+wMartItem18BCD:: ds 3
+wMartItem19BCD:: ds 3
+wMartItem20BCD:: ds 3
 
 SECTION UNION "Miscellaneous WRAM 1", WRAMX
 
@@ -2409,7 +2418,7 @@ wUsingItemWithSelect:: db
 UNION
 ; mart data
 wCurMartCount:: db
-wCurMartItems:: ds 15
+wCurMartItems:: ds 21
 
 NEXTU
 ; elevator data
@@ -2877,7 +2886,9 @@ wDudeNumBalls:: db
 wDudeBalls:: ds 2 * 4 + 1
 ENDU
 
-	ds 4
+wOtherTrainerType:: db
+wTrainerGroupBank:: db
+	ds 2
 
 wd430:: ; mobile
 wBattleAction:: db
@@ -3336,8 +3347,13 @@ wYanmaMapNumber:: db
 wPlayerMonSelection:: ds 3
 wdc5f:: db
 wdc60:: db
-
-	ds 18
+wRematchJohto:: db
+wRematchJohtoMax:: db
+wRematchKanto:: db
+wRematchKantoMax:: db
+wRematchTopFour:: db
+wRematchTopFourMax:: db
+	ds 12
 
 wStepCount:: db
 wPoisonStepCount:: db
@@ -3354,7 +3370,7 @@ wPhoneList:: ds CONTACT_LIST_SIZE + 1
 	ds 22
 
 wLuckyNumberShowFlag:: db
-	ds 1
+wRepelType:: db
 wLuckyIDNumber:: dw
 
 wRepelEffect:: db ; If a Repel is in use, it contains the nr of steps it's still active

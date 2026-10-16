@@ -14,8 +14,14 @@ Red:
 	waitbutton
 	closetext
 	winlosstext RedWinLossText, RedWinLossText
-	loadtrainer RED, RED1
+        checkevent EVENT_BEAT_RED3
+        iftrue .Battle3
+        checkevent EVENT_BEAT_RED2
+        iftrue .Battle2
+        loadtrainer RED, RED1
 	startbattle
+        setevent EVENT_BEAT_RED2
+.next:
 	dontrestartmapmusic
 	reloadmapafterbattle
 	special FadeOutMusic
@@ -33,6 +39,17 @@ Red:
 	refreshscreen
 	credits
 	end
+.Battle2:
+        loadtrainer RED, 2
+        startbattle
+        setevent EVENT_BEAT_RED3
+        sjump .next
+
+.Battle3:
+        loadtrainer RED, 3
+        startbattle
+        sjump .next
+
 
 RedSeenText:
 	text "…"

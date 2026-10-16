@@ -68,4 +68,6 @@ TrainerClassNames::
 	li "WÄCHTER"
 	li "ROCKET"
 	li "MYSTIKER"
+	li "PROF."
+	li "GANGSTER"
 	assert_list_length NUM_TRAINER_CLASSES

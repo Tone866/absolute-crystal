@@ -4,12 +4,34 @@
 	const PEWTERCITY_GRAMPS
 	const PEWTERCITY_FRUIT_TREE1
 	const PEWTERCITY_FRUIT_TREE2
+        const PEWTERCITY_AMONITAS
+        const PEWTERCITY_KABUTO
 
 PewterCity_MapScripts:
 	def_scene_scripts
 
 	def_callbacks
 	callback MAPCALLBACK_NEWMAP, PewterCityFlypointCallback
+
+Kabuto:
+        faceplayer
+        cry KABUTO
+        loadwildmon KABUTO, 15
+        startbattle
+        disappear PEWTERCITY_KABUTO
+        setevent EVENT_FOUGHT_KABUTO
+        reloadmapafterbattle
+        end
+
+Amonitas:
+        faceplayer
+        cry OMANYTE
+        loadwildmon OMANYTE, 15
+        startbattle
+        disappear PEWTERCITY_AMONITAS
+        setevent EVENT_FOUGHT_AMONITAS
+        reloadmapafterbattle
+        end
 
 PewterCityFlypointCallback:
 	setflag ENGINE_FLYPOINT_PEWTER
@@ -189,3 +211,5 @@ PewterCity_MapEvents:
 	object_event 29, 17, SPRITE_GRAMPS, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 2, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, PewterCityGrampsScript, -1
 	object_event 32,  3, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, PewterCityFruitTree1, -1
 	object_event 30,  3, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, PewterCityFruitTree2, -1
+        object_event  4,  2, SPRITE_PAPER, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, Amonitas, EVENT_FOUGHT_AMONITAS
+        object_event 18,  6, SPRITE_PAPER, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, Kabuto, EVENT_FOUGHT_KABUTO
