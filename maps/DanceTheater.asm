@@ -8,6 +8,7 @@
 	const DANCETHEATER_RHYDON
 	const DANCETHEATER_COOLTRAINER_M
 	const DANCETHEATER_GRANNY
+        const DANCETHEATER_KIMONO_GIRL_EVEE
 
 DanceTheater_MapScripts:
 	def_scene_scripts
@@ -68,6 +69,65 @@ TrainerKimonoGirlMiki:
 	waitbutton
 	closetext
 	end
+
+TrainerKimonoGirlEvee:
+        faceplayer
+        opentext
+        writetext KimonoGirlEveeSeenText
+        waitbutton
+        closetext
+        winlosstext KimonoGirlEveeBeatenText, 0
+        checkcode VAR_REMATCHTOPFOURMAX
+        ifequal 1, .max1
+        ifequal 2, .max2
+        ifequal 3, .max3
+        ifequal 4, .max4
+        checkcode VAR_BADGES
+        if_greater_than 7, .Badge8
+        if_greater_than 6, .Badge7
+        if_greater_than 4, .Badge5
+;        trainer KIMONO_GIRL, EVEE, EVENT_BEAT_KIMONO_GIRL_EVEE, KimonoGirlEveeSeenText, KimonoGirlEveeBeatenText, 0, .Script
+	loadtrainer KIMONO_GIRL, EVEE
+
+.next:
+        startbattle
+	reloadmapafterbattle
+        opentext
+        writetext KimonoGirlEveeAfterBattleText
+        waitbutton
+        closetext
+	end
+
+.Badge5:
+        loadtrainer KIMONO_GIRL, EVEE2
+	sjump .next
+.Badge7:
+        loadtrainer KIMONO_GIRL, EVEE3
+        sjump .next
+.Badge8:
+        loadtrainer KIMONO_GIRL, EVEE4
+        sjump .next
+.max1:
+        loadtrainer KIMONO_GIRL, EVEE5
+        sjump .next
+.max2:
+        loadtrainer KIMONO_GIRL, EVEE6
+        sjump .next
+.max3:
+        loadtrainer KIMONO_GIRL, EVEE7
+        sjump .next
+.max4:
+        loadtrainer KIMONO_GIRL, EVEE8
+        sjump .next
+
+.Script:
+        endifjustbattled
+        opentext
+        writetext KimonoGirlEveeAfterBattleText
+        waitbutton
+        closetext
+        end
+
 
 DanceTheaterSurfGuy:
 	faceplayer
@@ -134,6 +194,26 @@ DanceTheaterGrannyScript:
 
 DanceTheaterFancyPanel:
 	jumptext DanceTheaterFancyPanelText
+
+KimonoGirlEveeSeenText:
+        text "Ich bin die Mutter"
+	line "der KIMONO-GIRLS."
+        cont "Ich bin sehr stolz"
+	cont "auf meine Mädchen!"
+        done
+
+KimonoGirlEveeBeatenText:
+        text "Ich habe keine"
+        line "#MON mehr"
+        cont "übrig…"
+        done
+
+KimonoGirlEveeAfterBattleText:
+        text "Meine Mädchen"
+        line "trainieren täg-"
+        cont "lich und werden"
+        cont "immer besser."
+        done
 
 KimonoGirlNaokoSeenText:
 	text "Du hast hübsche"
@@ -374,3 +454,4 @@ DanceTheater_MapEvents:
 	object_event  6,  8, SPRITE_RHYDON, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, DanceTheaterRhydon, -1
 	object_event 10, 10, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, DanceTheaterCooltrainerMScript, -1
 	object_event  3,  6, SPRITE_GRANNY, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, DanceTheaterGrannyScript, -1
+        object_event  6,  7, SPRITE_KIMONO_GIRL, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, TrainerKimonoGirlEvee, -1

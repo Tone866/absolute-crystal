@@ -4620,6 +4620,86 @@ KimonoGirlGroup:
 	db 17, JOLTEON
 	db -1 ; end
 
+        ; KIMONO_GIRL (7)
+        db "EVA@", TRAINERTYPE_NORMAL
+        db 18, EEVEE
+        db 19, JOLTEON
+        db 19, VAPOREON
+        db 19, FLAREON
+        db 19, UMBREON
+        db 19, ESPEON
+        db -1 ; end
+
+        ; KIMONO_GIRL (7)
+        db "EVA@", TRAINERTYPE_NORMAL
+        db 29, EEVEE
+        db 30, JOLTEON
+        db 30, VAPOREON
+        db 30, FLAREON
+        db 30, UMBREON
+        db 30, ESPEON
+        db -1 ; end
+
+        ; KIMONO_GIRL (7)
+        db "EVA@", TRAINERTYPE_NORMAL
+        db 34, EEVEE
+        db 36, JOLTEON
+        db 36, VAPOREON
+        db 36, FLAREON
+        db 36, UMBREON
+        db 36, ESPEON
+        db -1 ; end
+
+        ; KIMONO_GIRL (7)
+        db "EVA@", TRAINERTYPE_NORMAL
+        db 38, EEVEE
+        db 40, JOLTEON
+        db 40, VAPOREON
+        db 40, FLAREON
+        db 40, UMBREON
+        db 40, ESPEON
+        db -1 ; end
+
+        ; KIMONO_GIRL (7)
+        db "EVA@", TRAINERTYPE_NORMAL
+        db 54, EEVEE
+        db 55, JOLTEON
+        db 55, VAPOREON
+        db 55, FLAREON
+        db 55, UMBREON
+        db 55, ESPEON
+        db -1 ; end
+
+        ; KIMONO_GIRL (7)
+        db "EVA@", TRAINERTYPE_NORMAL
+        db 64, EEVEE
+        db 65, JOLTEON
+        db 65, VAPOREON
+        db 65, FLAREON
+        db 65, UMBREON
+        db 65, ESPEON
+        db -1 ; end
+
+        ; KIMONO_GIRL (7)
+        db "EVA@", TRAINERTYPE_NORMAL
+        db 74, EEVEE
+        db 75, JOLTEON
+        db 75, VAPOREON
+        db 75, FLAREON
+        db 75, UMBREON
+        db 75, ESPEON
+        db -1 ; end
+
+        ; KIMONO_GIRL (7)
+        db "EVA@", TRAINERTYPE_NORMAL
+        db 84, EEVEE
+        db 85, JOLTEON
+        db 85, VAPOREON
+        db 85, FLAREON
+        db 85, UMBREON
+        db 85, ESPEON
+        db -1 ; end
+
 TwinsGroup:
 	; TWINS (1)
 	db "EVA & UTE@", TRAINERTYPE_NORMAL

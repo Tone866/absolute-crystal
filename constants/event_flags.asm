@@ -315,7 +315,7 @@
 	const EVENT_GINA_ASKED_FOR_PHONE_NUMBER
         const EVENT_BEAT_RIVAL4
 	const EVENT_IRWIN_ASKED_FOR_PHONE_NUMBER
-	const_skip ; unused in Crystal
+	const EVENT_BEAT_KIMONO_GIRL_EVEE
 	const EVENT_ARNIE_ASKED_FOR_PHONE_NUMBER
 	const_skip ; unused in Crystal
 	const EVENT_ALAN_ASKED_FOR_PHONE_NUMBER
