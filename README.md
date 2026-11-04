@@ -1,6 +1,6 @@
 ## Information 
 
-A German Pokemon Crystal Romhack.
+A German Pokemon Crystal Romhack.  
 Ein deutscher Pokemon Kristall Romhack.
 
 folgende Features wurden ergänzt:
@@ -13,7 +13,7 @@ folgende Features wurden ergänzt:
 - niedriger KP-Beep, piept jetzt nur noch 3x
 - ein paar mehr Kämpfe mit besonderen Personen
 
-## Setup [![Build Status][ci-badge]][ci]
+## Setup
 
 For more information, please see [INSTALL.md](INSTALL.md)
 
